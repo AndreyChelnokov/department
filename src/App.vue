@@ -6,7 +6,7 @@
 
 <script>
 import appDepartment from './components/app-department.vue';
-import {getLinkNodeInArray} from "./utils";
+import { getLinkNodeInArray } from "./utils";
 
 export default {
   name: 'App',
