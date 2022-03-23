@@ -15,10 +15,7 @@
         @dragleave="leave"
     >{{ name }}</div>
 
-    <div
-         ref="wrapper"
-         class="department__children"
-    >
+    <div class="department__children" >
       <div
           v-if="children.length >= 2"
           class="department__children-line"
@@ -32,6 +29,7 @@
 
       <app-department
           v-for="department in children"
+          ref="department_children"
           :key="department.name"
           :name="department.name"
           :children="department.children"
@@ -68,16 +66,18 @@ export default {
     },
   },
   methods: {
-    getLine: function () {
+    getDataFoTopLine: function () {
       if (this.children.length >= 2) {
-        const wrap = this.$refs.wrapper.querySelectorAll(`.department.level_${this.level + 1}`);
+        const listChildrenDepartments = this.$refs.department_children;
 
-        const widthFirstItem = wrap[0].clientWidth;
-        const widthLastItem = wrap[wrap.length - 1].clientWidth;
+        const firstItem = listChildrenDepartments[0].$el
+        const lastItem = listChildrenDepartments[listChildrenDepartments.length - 1].$el
 
-        this.widthLineWrap.left = widthFirstItem / 2
-        this.widthLineWrap.right = widthLastItem / 2
-        this.widthLineWrap.width = `calc(100% - ${(widthLastItem + widthFirstItem) / 2}px)`
+        const widthFirstItem = firstItem.clientWidth;
+        const widthLastItem = lastItem.clientWidth;
+
+        this.widthLineWrap.left = widthFirstItem / 2;
+        this.widthLineWrap.right = widthLastItem / 2;
       }
     },
 
@@ -110,7 +110,7 @@ export default {
     }
   },
   mounted() {
-    this.getLine()
+    this.getDataFoTopLine()
   }
 }
 </script>
