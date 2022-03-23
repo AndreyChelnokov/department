@@ -54,7 +54,6 @@ export default {
   },
   methods: {
     updateData: function (array, currentName, newParentName) {
-
       const currentNode = getLinkNodeInArray(this.organization, currentName);
       const parentNode = getLinkNodeInArray(this.organization, newParentName);
 
@@ -75,7 +74,7 @@ export default {
   },
   computed: {
     eventList: function () {
-      return this.$store.state.moving_data;
+      return this.$store.state.movingData;
     },
     lastEvent: function () {
       const arr = this.eventList;
@@ -100,6 +99,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

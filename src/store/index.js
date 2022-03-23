@@ -5,15 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    moving: [],
-    moving_data: []
+    listCurrentItems: [],
+    movingData: []
   },
   mutations: {
-    SET_MOVING: function (state, value) {
-      state.moving.push({startCardName: value})
+    SET_CURRENT_ITEMS: function (state, value) {
+      state.listCurrentItems.push(value)
     },
     SET_MOVING_DATA: function (state, value) {
-      state.moving_data.push(value);
+      state.movingData.push(value);
     }
   },
   actions: {

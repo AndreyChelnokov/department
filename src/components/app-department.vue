@@ -4,7 +4,7 @@
       @dragend="end"
       class="department"
       :id="name"
-      :class="`level_${level}`"
+      :class="`level_${level} ${noPointerClass ? 'department_no-pointer' : ''}` "
       draggable="true">
     <div
         class="department__title"
@@ -44,6 +44,7 @@ export default {
   name: 'app-department',
   data: function () {
     return {
+      noPointerClass: false,
       hovered: false,
       widthLineWrap: {
         left: 0,
@@ -85,13 +86,13 @@ export default {
       e.stopPropagation();
 
       setTimeout(() => {
-        e.target.style.pointerEvents = 'none'
+        this.noPointerClass = true;
       }, 0)
 
-      this.$store.commit('SET_MOVING', e.target.id)
+      this.$store.commit('SET_CURRENT_ITEMS', this.name)
     },
-    end: function (e) {
-      e.target.style.pointerEvents = 'auto'
+    end: function () {
+      this.noPointerClass = false;
     },
     enter: function () {
       this.hovered = true;
@@ -101,7 +102,8 @@ export default {
     },
     drop: function (e) {
       e.stopPropagation();
-      const currentNode = this.$store.state.moving[this.$store.state.moving.length - 1].startCardName;
+
+      const currentNode = this.$store.state.listCurrentItems[this.$store.state.listCurrentItems.length - 1];
       const newParentNode = this.name
 
       if (currentNode !== newParentNode) {
@@ -110,7 +112,7 @@ export default {
     }
   },
   mounted() {
-    this.getDataFoTopLine()
+    this.getDataFoTopLine();
   }
 }
 </script>
@@ -121,6 +123,10 @@ export default {
   padding: 0 10px;
   width: fit-content;
   margin: 0 auto;
+
+  &_no-pointer {
+    pointer-events: none;
+  }
 
   &__title {
     display: flex;
